@@ -8,26 +8,32 @@ function App() {
     name: "",
     email: "",
     phone: "",
-    // Add other fields as necessary
+    experience: "",
+    education: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const [isSubmitted, setIsSubmitted] = useState(false); // State to track form submission
+
+  const handleFormSubmit = (data) => {
+    setFormData(data);
+    setIsSubmitted(true); // Hide the form after submission
+  };
+
+  const handleEdit = () => {
+    setIsSubmitted(false); // Show the form again
   };
 
   return (
     <>
       <h1>CV Builder</h1>
-      <CVForm
-        formData={formData}
-        handleInputChange={handleInputChange}
-        onSubmit={(data) => setFormData(data)}
-      />{" "}
-      <Preview formData={formData} />
+      {!isSubmitted ? (
+        <CVForm onSubmit={handleFormSubmit} initialData={formData} />
+      ) : (
+        <div>
+          <Preview formData={formData} />
+          <button onClick={handleEdit}>Edit</button> {/* Edit button */}
+        </div>
+      )}
     </>
   );
 }
