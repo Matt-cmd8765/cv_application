@@ -11,7 +11,6 @@ function CVForm({ onSubmit, initialData }) {
 
   const [errors, setErrors] = useState({});
 
-  // Populate the form with initial data when the component mounts or initialData changes
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
@@ -21,8 +20,6 @@ function CVForm({ onSubmit, initialData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    // Clear the error for the field being edited
     setErrors({ ...errors, [name]: "" });
   };
 
@@ -53,7 +50,7 @@ function CVForm({ onSubmit, initialData }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="snes-form">
       <div>
         <label>
           Name:
@@ -62,10 +59,11 @@ function CVForm({ onSubmit, initialData }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            className="snes-input"
             required
           />
         </label>
-        {errors.name && <p className="error">{errors.name}</p>}
+        {errors.name && <p className="snes-error">{errors.name}</p>}
       </div>
       <div>
         <label>
@@ -75,10 +73,11 @@ function CVForm({ onSubmit, initialData }) {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            className="snes-input"
             required
           />
         </label>
-        {errors.email && <p className="error">{errors.email}</p>}
+        {errors.email && <p className="snes-error">{errors.email}</p>}
       </div>
       <div>
         <label>
@@ -88,10 +87,11 @@ function CVForm({ onSubmit, initialData }) {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            className="snes-input"
             required
           />
         </label>
-        {errors.phone && <p className="error">{errors.phone}</p>}
+        {errors.phone && <p className="snes-error">{errors.phone}</p>}
       </div>
       <div>
         <label>
@@ -100,6 +100,7 @@ function CVForm({ onSubmit, initialData }) {
             name="experience"
             value={formData.experience}
             onChange={handleChange}
+            className="snes-textarea"
           />
         </label>
       </div>
@@ -110,10 +111,13 @@ function CVForm({ onSubmit, initialData }) {
             name="education"
             value={formData.education}
             onChange={handleChange}
+            className="snes-textarea"
           />
         </label>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" className="snes-button">
+        Submit
+      </button>
     </form>
   );
 }
